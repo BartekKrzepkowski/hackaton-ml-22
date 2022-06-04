@@ -2,13 +2,14 @@ import json
 import cv2
 import os
 
+
 data_dir = '../public_dataset/'
 train_dir = f'{data_dir}reference_images_part1/'
-valid_dir = f'{data_dir}images_part1_valid/'
 train_metadata_json = f'{data_dir}reference_images_part1.json'
-valid_metadata_json = f'{data_dir}images_part1_valid.json'
 
 new_train_dir = f'{data_dir}train/'
+if not os.path.isdir(new_train_dir):
+    os.mkdir(new_train_dir)
 
 with open(train_metadata_json) as f:
     train_meta = json.load(f)
@@ -36,8 +37,6 @@ for annotation in train_meta['annotations']:
     
     resized = cv2.resize(bbox_img, new_img_shape)
 
-    if not os.path.isdir(new_train_dir):
-        os.mkdir(new_train_dir)
     category_dir = f'{new_train_dir}{category}/'
     if not os.path.isdir(category_dir):
         os.mkdir(category_dir)
