@@ -35,7 +35,9 @@ for annotation in train_meta['annotations']:
     bbox_img = img[bbox[1]:bbox[1]+bbox[3], bbox[0]:bbox[0]+bbox[2]]
     
     resized = cv2.resize(bbox_img, new_img_shape)
-    
+
+    if not os.path.isdir(new_train_dir):
+        os.mkdir(new_train_dir)
     category_dir = f'{new_train_dir}{category}/'
     if not os.path.isdir(category_dir):
         os.mkdir(category_dir)
